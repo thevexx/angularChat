@@ -1,20 +1,73 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+  <div class="row form-group">
+    <div class="col-xs-12 col-md-offset-2 col-md-8 col-lg-8 col-lg-offset-2">
+      <div class="panel panel-primary">
+        <div class="panel-body body-panel">
+          <ul class="chat" *ngIf="user">
+            <li class="left clearfix" *ngFor="let chat of chats" [ngClass]="{'right clearfix': user == chat.user,'left clearfix': user != chat.user }">
+              <span [ngClass]="{'chat-img pull-right': user == chat.user,'chat-img pull-left': user != chat.user }">
+                <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+              </span>
+              <div class="chat-body clearfix">
+                <div class="header">
+                  <strong class="primary-font">{{chat.user}}</strong> <small
+                  [ngClass]="{'pull-right text-muted': user == chat.user,'pull-left text-muted': user != chat.user }">
+                    <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
+                </div>
+                <p>
+                  {{chat.message}}
+                </p>
+              </div>
+            </li>
+            <!-- <li class="right clearfix">
+              <span class="chat-img pull-right">
+                <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+              </span>
+              <div class="chat-body clearfix">
+                <div class="header">
+                  <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
+                  <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                </div>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                  dolor, quis ullamcorper ligula sodales.
+                </p>
+              </div>
+            </li> -->
+          </ul>
+        </div>
+        <div class="panel-footer clearfix">
+          <input *ngIf="user" [(ngModel)]="msg" class="form-control">
+          <span *ngIf="user" class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-xs-12" style="margin-top: 10px">
+            <button (click)="sendMsg(msg)" class="btn btn-warning btn-lg btn-block" id="btn-chat">Send</button>
+          </span>
+          <button *ngIf="!user" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            start chat </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" #nameInput placeholder="user name">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveUser(nameInput.value)">Save
+          changes</button>
+      </div>
+    </div>
+  </div>
+</div>
